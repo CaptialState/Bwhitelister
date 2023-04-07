@@ -6,7 +6,7 @@
 
     <groupId>github.clerickx.BWhitelister</groupId>
     <artifactId>BWhitelister</artifactId>
-    <version>spigot-1.19.4-001</version>
+    <version>spigot-1.19.4-002</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
