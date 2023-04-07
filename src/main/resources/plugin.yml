@@ -1,0 +1,5 @@
+name: BWhitelister
+description: A primitive whitelist bridge
+author: Clerick_x
+main: github.clerickx.BWhitelister.BWhitelister
+version: 1.19.4
