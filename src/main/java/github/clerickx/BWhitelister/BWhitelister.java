@@ -19,7 +19,7 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.security.auth.login.LoginException;
+import java.util.Objects;
 
 public class BWhitelister extends JavaPlugin {
 
@@ -42,10 +42,12 @@ public class BWhitelister extends JavaPlugin {
             try {
                 jda = startJDA();
                 getLogger().info("JDA Started");
-            } catch (LoginException | InterruptedException e) {
+            } catch (Exception e) {
                 getLogger().warning(e.getMessage());
+                getLogger().warning("No further code will be executed");
+                return;
             }
-            jda.getGuildById(getConfig().getString("guild-id")).updateCommands().addCommands(
+            Objects.requireNonNull(jda.getGuildById(Objects.requireNonNull(getConfig().getString("guild-id")))).updateCommands().addCommands(
                     Commands.slash("selfwhitelist", "Whitelist based on discord form"),
                     Commands.slash("whitelist", "DC controller")
                             .addOptions(
@@ -63,10 +65,12 @@ public class BWhitelister extends JavaPlugin {
     @Override
     public void onDisable() {
         whitelist.saveWhitelist();
-        jda.shutdown();
+        if (jda != null) {
+            jda.shutdown();
+        }
     }
 
-    private JDA startJDA() throws LoginException, InterruptedException {
+    private JDA startJDA() throws Exception {
         return(JDABuilder.createDefault(getConfig().getString("token"))
                 .addEventListeners(new SelfWhitelist())
                 .addEventListeners(new WhitelistModal())
