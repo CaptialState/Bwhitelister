@@ -15,6 +15,7 @@ public class WhitelistModal extends ListenerAdapter {
         if (event.getModalId().equals("whitelistform")) {
             String playername = event.getValue("playername").getAsString();
             String whitelistrole = BWhitelister.getInstance().getConfig().getString("role-on-whitelist-id");
+            String logchannel = BWhitelister.getInstance().getConfig().getString("log-channel-id");
             if (whitelist.check(playername)) {
                 event.reply(":x: Sorry playername already registered").setEphemeral(true).queue();
             } else {
@@ -25,6 +26,9 @@ public class WhitelistModal extends ListenerAdapter {
                     event.reply(":white_check_mark: You've been whitelisted in the name, " + playername + ". have a fun time playing").setEphemeral(true).queue();
                     if (whitelistrole != null) {
                         event.getGuild().addRoleToMember(Objects.requireNonNull(event.getMember()), Objects.requireNonNull(event.getGuild().getRoleById(whitelistrole))).queue();
+                    }
+                    if (logchannel != null) {
+                        event.getGuild().getTextChannelById(logchannel).sendMessage("Member " + event.getMember().getAsMention() + ", whitelisted as " + playername).queue();
                     }
                 }
             }
