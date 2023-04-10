@@ -12,6 +12,7 @@ whitelist-message: ""
 
 # Integer id of the role to be given after whitelist, Leave empty for no role assign after whitelist
 role-on-whitelist-id:
+role-on-rmwhitelist-id:
 
 # Log channel ID (Integer), Leave empty for no logging
 log-channel-id:

@@ -25,8 +25,8 @@ public class commandWhitelist extends ListenerAdapter {
                 event.getHook().sendFiles(FileUpload.fromData(whitelist.getWhitelistFile(), "whitelist.yml")).queue();
                 break;
             case "remove":
-                String ign = Objects.requireNonNull(event.getOption("ign")).getAsString();
-                Member user = Objects.requireNonNull(event.getOption("user")).getAsMember();
+                String ign = event.getOption("ign").getAsString();
+                Member user = event.getOption("user").getAsMember();
 
                 if (ign.equals("")) {
                     if (whitelist.check(ign)) {
