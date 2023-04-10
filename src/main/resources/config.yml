@@ -1,3 +1,13 @@
+#  ______        ___     _ _       _ _     _
+# | __ ) \      / / |__ (_) |_ ___| (_)___| |_ ___ _ __
+# |  _ \\ \ /\ / /| '_ \| | __/ _ \ | / __| __/ _ \ '__|
+# | |_) |\ V  V / | | | | | ||  __/ | \__ \ ||  __/ |
+# |____/  \_/\_/  |_| |_|_|\__\___|_|_|___/\__\___|_|
+# Made by clerick_x
+# License: GPL-V3
+
 token: ""
 guild-id: ""
 
+# Integer id of the role to be given after whitelist, Leave empty for no role assign after whitelist
+role-on-whitelist-id:

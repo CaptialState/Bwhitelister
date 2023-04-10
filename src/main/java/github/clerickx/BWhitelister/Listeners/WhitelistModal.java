@@ -1,9 +1,12 @@
 package github.clerickx.BWhitelister.Listeners;
+
+import github.clerickx.BWhitelister.BWhitelister;
 import github.clerickx.BWhitelister.utils.whitelist;
 
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
+import java.util.Objects;
 
 public class WhitelistModal extends ListenerAdapter {
 
@@ -11,6 +14,7 @@ public class WhitelistModal extends ListenerAdapter {
     public void onModalInteraction(ModalInteractionEvent event) {
         if (event.getModalId().equals("whitelistform")) {
             String playername = event.getValue("playername").getAsString();
+            String whitelistrole = BWhitelister.getInstance().getConfig().getString("role-on-whitelist-id");
             if (whitelist.check(playername)) {
                 event.reply(":x: Sorry playername already registered").setEphemeral(true).queue();
             } else {
@@ -19,6 +23,9 @@ public class WhitelistModal extends ListenerAdapter {
                 } else {
                     whitelist.add(playername, event.getUser().getId().toString());
                     event.reply(":white_check_mark: You've been whitelisted in the name, " + playername + ". have a fun time playing").setEphemeral(true).queue();
+                    if (whitelistrole != null) {
+                        event.getGuild().addRoleToMember(Objects.requireNonNull(event.getMember()), Objects.requireNonNull(event.getGuild().getRoleById(whitelistrole))).queue();
+                    }
                 }
             }
 

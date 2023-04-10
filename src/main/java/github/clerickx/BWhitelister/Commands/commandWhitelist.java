@@ -1,8 +1,10 @@
 package github.clerickx.BWhitelister.Commands;
 
+import github.clerickx.BWhitelister.BWhitelister;
 import github.clerickx.BWhitelister.utils.whitelist;
 
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.FileUpload;
@@ -29,6 +31,11 @@ public class commandWhitelist extends ListenerAdapter {
                 if (ign.equals("")) {
                     if (whitelist.check(ign)) {
                         whitelist.remove(ign);
+                        if (BWhitelister.getInstance().getConfig().getString("role-on-whitelist-id") != null) {
+                            Role role = event.getGuild().getRoleById(BWhitelister.getInstance().getConfig().getString("role-on-whitelist-id"));
+                            Member member = event.getGuild().getMemberById(whitelist.getHashMap().get(ign));
+                            event.getGuild().removeRoleFromMember(member, role).queue();
+                        }
                         event.getHook().sendMessage(":white_check_mark: " + ign + ", Removed").queue();
                     } else {
                         event.getHook().sendMessage(":x: Ign not found").queue();

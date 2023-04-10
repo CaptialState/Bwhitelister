@@ -55,7 +55,7 @@ public class BWhitelister extends JavaPlugin {
                                             .addChoice("remove", "remove")
                                             .addChoice("list", "list"),
                                     new OptionData(OptionType.STRING, "ign", "Ingame name of player", false),
-                                    new OptionData(OptionType.USER, "user", "User to be actioned"))
+                                    new OptionData(OptionType.USER, "user", "User to be actioned", false))
                             .setDefaultPermissions(DefaultMemberPermissions.enabledFor(Permission.KICK_MEMBERS))
             ).queue();
         }
