@@ -23,8 +23,12 @@ public class WhitelistModal extends ListenerAdapter {
                 if (whitelist.getHashMap().containsValue(event.getUser().getId().toString())) {
                     event.reply(":x: Sorry you've already registered in the server, If this was an accident you can create a ticket for name change").setEphemeral(true).queue();
                 } else {
-                    whitelist.add(playername, event.getUser().getId().toString());
-                    event.reply(":white_check_mark: You've been whitelisted in the name, " + playername + ". have a fun time playing").setEphemeral(true).queue();
+                    if (playername.contains(" ")) {
+                        event.reply(":x: Sorry irregular char sequence, Don't use spaces").setEphemeral(true).queue();
+                    } else {
+                        whitelist.add(playername, event.getUser().getId().toString());
+                        event.reply(":white_check_mark: You've been whitelisted in the name, " + playername + ". have a fun time playing").setEphemeral(true).queue();
+                    }
                     if (whitelistrole != null) {
                         event.getGuild().addRoleToMember(Objects.requireNonNull(event.getMember()), Objects.requireNonNull(event.getGuild().getRoleById(whitelistrole))).queue();
                     }
